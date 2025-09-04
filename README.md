@@ -206,5 +206,5 @@ This project is licensed under the MIT License.
 ## Getting Help
 
 - Use `?function_name` for detailed function documentation
-- See the package vignette: `vignette("mediaformatr-workflow")`
-- Report issues on GitHub: [Issues](https://github.com/yourusername/mediaformatr/issues)
+- See the package vignette: `vignette("getting-started")`
+- Report issues on GitHub: [Issues](https://github.com/danswart/mediaformatr/issues)
