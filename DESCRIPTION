@@ -23,3 +23,5 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
     magick
+URL: https://github.com/danswart/mediaformatr
+BugReports: https://github.com/danswart/mediaformatr/issues
