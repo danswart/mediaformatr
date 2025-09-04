@@ -1,0 +1,222 @@
+---
+title: "getting-started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{getting-started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mediaformatr)
+```
+
+# Getting Started with mediaformatr
+
+The `mediaformatr` package provides tools for analyzing, transforming, and optimizing media file references across different markup formats. Whether you're migrating presentation content to documentation, cleaning up media usage, or converting between Markdown and HTML, these functions streamline the process.
+
+## Core Functions Overview
+
+- `list_image_calls_in_target_file()` - Inventory all image references in a document
+- `list_gif_calls_in_target_file()` - Specifically analyze GIF usage  
+- `list_duplicate_media_in_target_file()` - Find duplicate media references
+- `transform_all_media_calls_to_alt_formats()` - Convert between Markdown and HTML formats
+- `limit_gif_loops()` - Optimize GIF files by limiting animation loops
+
+## Workflow 1: Presentation to Documentation Migration
+
+A common scenario is converting slide presentations to written documentation. Here's a complete workflow:
+
+### Step 1: Analyze Current Media Usage
+
+First, get an overview of what media files your presentation uses:
+
+```{r eval=FALSE}
+# Get complete media inventory
+list_image_calls_in_target_file("presentation.qmd", 
+                                 show_line_numbers = TRUE,
+                                 save_to_file = "media-inventory.txt")
+```
+
+```{r eval=FALSE}
+# Focus specifically on GIFs (often problematic for documentation)
+list_gif_calls_in_target_file("presentation.qmd",
+                               show_line_numbers = TRUE)
+```
+
+### Step 2: Identify Optimization Opportunities
+
+Find duplicate media references that might bloat your documentation:
+
+```{r eval=FALSE}
+# Find duplicates with usage counts
+list_duplicate_media_in_target_file("presentation.qmd",
+                                     show_usage_count = TRUE,
+                                     minimum_duplicates = 2)
+```
+
+### Step 3: Transform Formats
+
+Convert media references to your target documentation format:
+
+```{r eval=FALSE}
+# Convert to both Markdown and HTML formats
+transform_all_media_calls_to_alt_formats("presentation.qmd",
+                                          alt_text = "Presentation figure",
+                                          default_height = "300px",
+                                          save_to_file = "converted-media.md")
+```
+
+### Step 4: Optimize GIF Performance
+
+Limit GIF loops to prevent distracting infinite animations in documentation:
+
+```{r eval=FALSE}
+# Process each GIF found in your analysis
+limit_gif_loops("gif/animated-chart.gif", 
+                 "gif/doc-chart.gif",
+                 loop_limit = 2,
+                 create_backup = TRUE)
+
+limit_gif_loops("gif/demo-workflow.gif",
+                 "gif/doc-workflow.gif", 
+                 loop_limit = 1)  # Single play for tutorials
+```
+
+## Workflow 2: Website Content Optimization
+
+When optimizing existing web content for performance:
+
+### Step 1: Comprehensive Media Analysis
+
+```{r eval=FALSE}
+# Analyze all media types with detailed reporting
+list_duplicate_media_in_target_file("website-content.md",
+                                     media_extensions = c("gif", "png", "jpg", "mp4"),
+                                     show_usage_count = TRUE,
+                                     minimum_duplicates = 3,  # Focus on heavily duplicated content
+                                     save_to_file = "optimization-report.txt")
+```
+
+### Step 2: Batch GIF Optimization
+
+```{r eval=FALSE}
+# Get all GIFs that need optimization
+gif_files <- list_gif_calls_in_target_file("website-content.md", 
+                                            print_output = FALSE)
+
+# Process each unique GIF
+unique_gifs <- unique(gif_files)
+for (gif_path in unique_gifs) {
+  output_path <- gsub("\\.gif$", "-optimized.gif", gif_path)
+  
+  limit_gif_loops(gif_path, output_path,
+                   loop_limit = 3,
+                   quality_settings = list(optimize = TRUE, colors = 128),
+                   print_output = FALSE)
+}
+```
+
+## Workflow 3: Format Conversion for CMS Migration
+
+Converting content between different content management systems:
+
+### Step 1: Extract and Convert Media References
+
+```{r eval=FALSE}
+# Convert all media to HTML format with custom attributes
+transform_all_media_calls_to_alt_formats("cms-content.md",
+                                          default_width = "100%",
+                                          default_height = "auto", 
+                                          html_attributes = list(
+                                            class = "responsive-image",
+                                            loading = "lazy"
+                                          ))
+```
+
+### Step 2: Generate Migration Report
+
+```{r eval=FALSE}
+# Create comprehensive report for migration team
+results <- transform_all_media_calls_to_alt_formats("cms-content.md",
+                                                     print_output = FALSE,
+                                                     remove_duplicates = TRUE)
+
+cat("Migration Summary:\n")
+cat("Total media references:", results$total_found, "\n")
+cat("Unique media files:", results$unique_files, "\n")
+cat("Duplicate references removed:", results$total_found - results$unique_files, "\n")
+```
+
+## Workflow 4: Accessibility Improvement
+
+Adding proper alt text and optimizing media for accessibility:
+
+### Step 1: Audit Current Accessibility
+
+```{r eval=FALSE}
+# Check what media lacks proper descriptions
+image_refs <- list_image_calls_in_target_file("document.qmd", 
+                                               print_output = FALSE)
+# Review each reference for missing alt text
+```
+
+### Step 2: Generate Accessible Markup
+
+```{r eval=FALSE}
+# Convert with descriptive alt text
+transform_all_media_calls_to_alt_formats("document.qmd",
+                                          alt_text = "Descriptive figure", 
+                                          html_attributes = list(
+                                            role = "img",
+                                            "aria-describedby" = "caption"
+                                          ))
+```
+
+### Step 3: Reduce Motion for Vestibular Sensitivity
+
+```{r eval=FALSE}
+# Limit all GIFs to single play to reduce motion
+gif_list <- list_gif_calls_in_target_file("document.qmd", print_output = FALSE)
+unique_gifs <- unique(gif_list)
+
+for (gif in unique_gifs) {
+  accessible_path <- gsub("\\.gif$", "-accessible.gif", gif)
+  limit_gif_loops(gif, accessible_path, 
+                   loop_limit = 1,
+                   save_to_file = "accessibility-log.txt",
+                   append = TRUE)
+}
+```
+
+## Best Practices
+
+### File Organization
+- Always create backups before modifying media files
+- Use descriptive output filenames (e.g., "presentation-optimized.gif")
+- Save processing logs for batch operations
+
+### Performance Optimization  
+- Limit GIF loops to 1-3 for documentation and tutorials
+- Use higher loop limits (5-10) only for attention-getting content
+- Consider alternative formats (WebP, MP4) for better compression
+
+### Accessibility
+- Always include meaningful alt text
+- Limit motion for users with vestibular disorders
+- Provide text alternatives for complex visual content
+
+### Workflow Integration
+- Use `print_output = FALSE` for programmatic processing
+- Save detailed logs with `save_to_file` for batch operations
+- Combine multiple functions for comprehensive media management
+
+The `mediaformatr` package streamlines these common content management tasks, making it easier to maintain high-quality, accessible, and performant media usage across your documentation and web content.
+

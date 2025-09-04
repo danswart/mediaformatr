@@ -1,0 +1,25 @@
+Package: mediaformatr
+Type: Package
+Title: Media Reference Format Transformation Tools for R
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Dan", "Swart",
+      email = "danswartcpa@gmail.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: Transform media file references between Markdown, HTML, 
+  and other markup formats. Provides tools for content migration, 
+  duplicate detection, and format conversion.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    magick
