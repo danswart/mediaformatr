@@ -10,7 +10,7 @@ Install the development version from GitHub:
 
 ```r
 # install.packages("devtools")
-devtools::install_github("danswart/mediaformatr")
+devtools::install_github("danswart/mediaformatr", build_vignettes = TRUE)
 ```
 
 ## Overview
@@ -201,7 +201,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the GPL (>= 3) license.
 
 ## Getting Help
 
