@@ -201,7 +201,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## Code of Conduct
 
-Please note that the mediaformatr project is released with a [Contributor Code of Conduct](htttps://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).  By contributing to this project, you agree to abide by its terms.
+Please note that the mediaformatr project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).  By contributing to this project, you agree to abide by its terms.
 
 ## License
 
