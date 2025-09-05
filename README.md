@@ -199,6 +199,10 @@ cat("Found", results$total_found, "media references\n")
 
 Contributions are welcome! Please feel free to submit issues or pull requests.
 
+## Code of Conduct
+
+Please note that the mediaformatr project is released with a [Contributor Code of Conduct](htttps://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).  By contributing to this project, you agree to abide by its terms.
+
 ## License
 
 This project is licensed under the GPL (>= 3) license.
