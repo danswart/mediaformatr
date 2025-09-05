@@ -16,4 +16,5 @@
 ^Meta$
 ^\.DS_Store$
 ^^\.*\\.Rproj$$
+^\*.html
 
